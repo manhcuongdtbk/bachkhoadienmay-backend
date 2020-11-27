@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  defaults format: :json do
+    scope module: :v1, constraints: Routes::ApiConstraint.new(version: 1, default: true) do
+      devise_for :users, module: :users
+    end
+  end
 end

@@ -6,9 +6,17 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.7.2'
 
 gem 'bootsnap', '>= 1.4.2', require: false
+gem 'cancancan', '~> 3.1'
+gem 'devise', '~> 4.7', '>= 4.7.3'
+gem 'devise-i18n', '~> 1.9', '>= 1.9.2'
+gem 'devise-jwt', '~> 0.8.0'
+gem 'jsonapi-serializer', '~> 2.1'
 gem 'mysql2', '>= 0.4.4'
 gem 'puma', '~> 4.1'
+gem 'rack-cors'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.4'
+gem 'rails-i18n', '~> 6.0'
+gem 'rolify', '~> 5.3'
 
 group :development, :test do
   gem 'bullet', '~> 6.1'

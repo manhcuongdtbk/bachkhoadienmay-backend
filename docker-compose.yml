@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    image: manhcuongdtbk/bachkhoadienmay-api
+    stdin_open: true
+    tty: true
+    depends_on:
+      - database
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/api
+      - bundle:/usr/local/bundle
+    env_file:
+      - docker/env/api/.env.development
+    networks:
+      - bachkhoadienmay-network
+    command: ["./docker/scripts/wait-for-it.sh", "database:3306" , "--", "docker/scripts/entrypoint.sh", "rails", "server", "-b", "0.0.0.0"]
+
+  database:
+    image: mysql:8.0.22
+    env_file:
+      - docker/env/database/.env.development
+    volumes:
+      - database-data:/var/lib/mysql
+    networks:
+      - bachkhoadienmay-network
+    command: --default-authentication-plugin=mysql_native_password
+
+volumes:
+  bundle:
+  database-data:
+
+networks:
+  bachkhoadienmay-network:
+    external:
+      name: bachkhoadienmay-network
